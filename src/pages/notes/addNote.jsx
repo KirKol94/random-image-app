@@ -1,5 +1,4 @@
-import React from 'react';
-import {useState} from "react";
+import React, {useState} from 'react';
 import {addNoteAC} from "../../store/reducers/notesReducer";
 import {useDispatch} from "react-redux";
 

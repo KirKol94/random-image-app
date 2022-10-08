@@ -1,6 +1,6 @@
 import React from 'react';
-import Notes from "./pages/Notes";
-import Header from "./components/layout/Header";
+import Notes from "./pages/notes/Notes";
+import Header from "./components/layout/header/Header";
 
 const App = () => {
   return (
