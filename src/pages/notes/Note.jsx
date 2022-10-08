@@ -10,10 +10,19 @@ const Note = ({note}) => {
   }
 
   return (
-    <li key={id}>
-      <b>{title}</b>
-      <p>{text}</p>
-      <button onClick={() => removeNote(id)}>&times;</button>
+    <li
+      key={id}
+      className='flex justify-between items-baseline p-5 border-2'
+    >
+      <div>
+        <b>{title}</b>
+        <pre>{text}</pre>
+      </div>
+
+      <button
+        className='py-3 px-4 text-white bg-red-400'
+        onClick={() => removeNote(id)}
+      >&times;</button>
     </li>
   );
 };

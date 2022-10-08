@@ -12,8 +12,6 @@ const notesReducer = (state = initialState, action) => {
         ...state, notes: [action.payload, ...state.notes]
       }
     case REMOVE_NOTE:
-      console.log(state.notes[0].id)
-      console.log(action.payload);
       return {
         ...state, notes: [...state.notes].filter(note => note.id !==action.payload)
       }

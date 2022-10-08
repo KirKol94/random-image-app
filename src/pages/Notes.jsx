@@ -1,14 +1,15 @@
 import React from 'react';
-import {useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
 import AddNote from "./notes/addNote";
 import NoteList from "./notes/NoteList";
+import {notesSelector} from "../store/selectors";
 
 const Notes = () => {
-  const dispatch = useDispatch()
-
+  const notes = useSelector(notesSelector)
   return (
-    <div className='container mx-auto'>
+    <div>
       <AddNote/>
+      {notes.length === 0 && <h1 className='py-5 text-center text-2xl'>Записей нет</h1>}
       <NoteList/>
     </div>
   );

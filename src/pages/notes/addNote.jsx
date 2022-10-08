@@ -14,28 +14,47 @@ const AddNote = () => {
   }
   const onSubmit = (e) => {
     e.preventDefault()
-    dispatch(addNoteAC({...note, id: new Date().getTime()}))
-    setNote({title: '', text: ''})
+
+    if (note.title.trim() || note.text.trim()) {
+      dispatch(addNoteAC({...note, id: new Date().getTime()}))
+      setNote({title: '', text: ''})
+    }
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        type="text"
-        name='title'
-        value={note.title}
-        onChange={onChangeHandler}
-      />
-      <textarea
-        name="text"
-        value={note.text}
-        onChange={onChangeHandler}
-      />
-      <input
-        type="submit"
-        value='Добавить'
-      />
-    </form>
+    <details>
+      <summary className='p-5 text-center bg-gray-200 hover:cursor-pointer'>
+        <span>Новая запись <b>⊕</b></span>
+      </summary>
+
+      <div className='min-h-[500px] flex flex-col justify-center items-center bg-gray-200'>
+        <form
+          className='w-[500px] flex flex-col space-y-3'
+          onSubmit={onSubmit}
+        >
+          <input
+            className='p-3 border border-blue-400'
+            type="text"
+            name='title'
+            value={note.title}
+            placeholder='Заголовок'
+            onChange={onChangeHandler}
+          />
+          <textarea
+            className='p-3 border border-blue-400'
+            name="text"
+            value={note.text}
+            placeholder='Описание'
+            onChange={onChangeHandler}
+          />
+          <button
+            className='p-3 bg-blue-400 text-white'
+            type="submit"
+          >Добавить
+          </button>
+        </form>
+      </div>
+    </details>
   );
 };
 
