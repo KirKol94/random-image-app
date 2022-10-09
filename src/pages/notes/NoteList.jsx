@@ -1,31 +1,30 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {notesSelector, searchSelector} from "../../store/selectors";
-import Note from "./Note";
-import {searchIsNotSuccessAC, searchIsSuccessAC} from "../../store/reducers/searchReducer";
+import { useDispatch, useSelector } from 'react-redux';
+import { notesSelector, searchSelector } from '../../store/selectors';
+import Note from './Note';
+import { searchIsNotSuccessAC, searchIsSuccessAC } from '../../store/reducers/searchReducer';
 
-const NoteList = () => {
-  const dispatch = useDispatch()
-  const allNotes = useSelector(notesSelector)
-  const search = useSelector(searchSelector)
+function NoteList() {
+  const dispatch = useDispatch();
 
-  const filteredNotes = allNotes.filter(note =>
-    note.text.toLowerCase().includes(search.toLowerCase())
-    || note.title.toLowerCase().includes(search.toLowerCase())
-  )
+  const allNotes = useSelector(notesSelector);
+  const search = useSelector(searchSelector);
 
-  const notes = search !== '' ? filteredNotes : allNotes
+  const stringIncludes = (str, searchStr) => str.toLowerCase().includes(searchStr.toLowerCase());
 
-  if (search && filteredNotes.length) dispatch(searchIsSuccessAC())
-  else dispatch(searchIsNotSuccessAC())
+  const filteredNotes = allNotes.filter((note) => stringIncludes(note.text, search)
+    || stringIncludes(note.title, search));
+
+  const notes = search !== '' ? filteredNotes : allNotes;
+
+  if (search && filteredNotes.length) dispatch(searchIsSuccessAC());
+  else dispatch(searchIsNotSuccessAC());
 
   return (
-    <ul className='container mx-auto mt-5 space-y-3'>
-      {notes.map((note) => (
-        <Note note={note}/>
-      ))}
+    <ul className="container mx-auto mt-5 space-y-3">
+      {notes.map((note) => (<Note note={note} />))}
     </ul>
   );
-};
+}
 
 export default NoteList;

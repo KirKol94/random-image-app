@@ -1,14 +1,14 @@
 import React from 'react';
-import Notes from "./pages/notes/Notes";
-import Header from "./components/layout/header/Header";
+import Notes from './pages/notes/Notes';
+import Header from './components/layout/header/Header';
 
-const App = () => {
+function App() {
   return (
     <>
-      <Header/>
-      <Notes/>
+      <Header />
+      <Notes />
     </>
   );
-};
+}
 
 export default App;

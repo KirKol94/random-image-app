@@ -1,16 +1,16 @@
 import React from 'react';
-import AddNote from "./addNote";
-import NoteList from "./NoteList";
-import Info from "./Info";
+import AddNote from './addNote';
+import NoteList from './NoteList';
+import Info from './Info';
 
-const Notes = () => {
+function Notes() {
   return (
     <div>
-      <AddNote/>
+      <AddNote />
       <Info />
-      <NoteList/>
+      <NoteList />
     </div>
   );
-};
+}
 
 export default Notes;
