@@ -9,7 +9,6 @@ function Note({ note }) {
 
   return (
     <li
-      key={id}
       className="flex justify-between items-baseline p-5 border-2"
     >
       <div>

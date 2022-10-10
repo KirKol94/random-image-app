@@ -7,7 +7,7 @@ function NoteList() {
 
   return (
     <ul className="container mx-auto mt-5 space-y-3">
-      {notes.map((note) => (<Note note={note} />))}
+      {notes.map((note) => (<Note key={note.id} note={note} />))}
     </ul>
   );
 }

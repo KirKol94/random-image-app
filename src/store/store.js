@@ -1,12 +1,20 @@
 import { combineReducers, createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import notesReducer from './reducers/notesReducer';
 import searchReducer from './reducers/searchReducer';
+
+const persistConfig = {
+  key: 'root',
+  storage,
+};
 
 const rootReducer = combineReducers({
   notes: notesReducer,
   search: searchReducer,
 });
 
-const store = createStore(rootReducer, composeWithDevTools());
-export default store;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = createStore(persistedReducer);
+export const persistor = persistStore(store);
