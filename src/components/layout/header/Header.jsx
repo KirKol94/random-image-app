@@ -5,6 +5,7 @@ import { notesSelector } from '../../../store/selectors';
 
 function Header() {
   const notes = useSelector(notesSelector);
+
   return (
     <header className="py-5 border-b-2">
       <section className="container mx-auto flex justify-between items-center">

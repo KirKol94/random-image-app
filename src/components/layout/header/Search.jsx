@@ -1,16 +1,9 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { searchTypingAC } from '../../../store/reducers/searchReducer';
+import React from 'react';
+import useSearch from '../../../hook/useSearch';
 
 function Search() {
-  const dispatch = useDispatch();
-  const [search, setSearch] = useState('');
+  const { search, onChangeHandler } = useSearch();
 
-  const onChangeHandler = (e) => {
-    const { value } = e.target;
-    setSearch(value);
-    dispatch(searchTypingAC(value));
-  };
   return (
     <form>
       <input

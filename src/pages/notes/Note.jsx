@@ -1,14 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { removeNoteAC } from '../../store/reducers/notesReducer';
+import useNote from '../../hook/useNote';
 
 function Note({ note }) {
-  const dispatch = useDispatch();
-  const { title, text, id } = note;
-  const removeNote = (noteId) => {
-    dispatch(removeNoteAC(noteId));
-  };
+  const {
+    id, title, text, removeNote,
+  } = useNote(note);
 
   return (
     <li

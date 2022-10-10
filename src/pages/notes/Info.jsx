@@ -1,12 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { notesSelector, searchIsSuccessSelector, searchSelector } from '../../store/selectors';
 import InfoText from './InfoText';
+import useInfo from '../../hook/useInfo';
 
 function Info() {
-  const notes = useSelector(notesSelector);
-  const searchIsSuccess = useSelector(searchIsSuccessSelector);
-  const search = useSelector(searchSelector);
+  const { notes, searchIsSuccess, search } = useInfo();
 
   return (
     <>
