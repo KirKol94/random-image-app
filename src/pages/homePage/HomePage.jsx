@@ -10,6 +10,7 @@ export default function HomePage() {
     width: 1000, height: 400, keyword: 'landscape', isLike: false, url: '',
   });
   const [reqCount, setReqCount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const baseURL = 'https://source.unsplash.com/random';
   const {
@@ -17,8 +18,13 @@ export default function HomePage() {
   } = imgParams;
 
   function reqImgUrl(w, h, k) {
+    setIsLoading(true);
+
     axios.get(`${baseURL}/${w}x${h}?${k}`)
-      .then((res) => setImgParams({ ...imgParams, url: res.request.responseURL }));
+      .then((res) => {
+        setIsLoading(false);
+        setImgParams({ ...imgParams, url: res.request.responseURL });
+      });
   }
 
   function onChangeHandler(e) {
@@ -30,7 +36,6 @@ export default function HomePage() {
   function onSubmitHandler(e) {
     e.preventDefault();
     reqImgUrl(width, height, keyword);
-    console.log('submit');
   }
 
   function addToLikes() {
@@ -77,19 +82,15 @@ export default function HomePage() {
             onChange={onChangeHandler}
           />
           <button
-            className="w-full p-3 rounded-md text-white bg-gray-800"
+            className="w-full p-3 rounded-md text-white bg-gray-800 disabled:bg-gray-300 disabled:cursor-progress"
             type="submit"
+            disabled={isLoading}
           >
             Update image
           </button>
         </form>
 
-        <img
-          src={url}
-          alt={keyword}
-          className="w-full"
-          onDoubleClick={addToLikes}
-        />
+        <img src={url} alt={keyword} className="w-full" onDoubleClick={addToLikes} />
       </section>
     </main>
   );
