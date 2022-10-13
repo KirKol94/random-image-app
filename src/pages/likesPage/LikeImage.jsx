@@ -33,7 +33,7 @@ export default function LikeImage() {
           type="button"
           onClick={() => removeFromLikes(id)}
         >
-          Удалить
+          Remove image
         </button>
       </section>
     </main>

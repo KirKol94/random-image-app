@@ -8,12 +8,13 @@ export default function HomePage() {
   const dispatch = useDispatch();
 
   const [imgParams, setImgParams] = useState({
-    width: 1000, height: 400, keyword: 'landscape', isLike: false, url: '',
+    width: '', height: '', keyword: 'landscape', isLike: false, url: '',
   });
   const [reqCount, setReqCount] = useState(0);
   const [urlOnSave, setUrlOnSave] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const baseURL = 'https://source.unsplash.com/random';
   const {
@@ -24,6 +25,7 @@ export default function HomePage() {
   function reqImgUrl(w, h, k) {
     setIsLoading(true);
     setIsSaved(true);
+    setIsLiked(false);
 
     axios.get(`${baseURL}/${w}x${h}?${k}`)
       .then((res) => {
@@ -47,6 +49,7 @@ export default function HomePage() {
     // проверка на одинаковые ссылки
     if (likes.filter((l) => l.url === imgParams.url).length === 0) {
       dispatch(addImageToLikesAC({ ...imgParams, id }));
+      setIsLiked(true);
     }
   }
 
@@ -57,6 +60,7 @@ export default function HomePage() {
         setUrlOnSave(URL.createObjectURL(res));
       });
   }
+
   useEffect(() => {
     reqImgUrl(width, height, keyword);
   }, [reqCount]);
@@ -109,7 +113,10 @@ export default function HomePage() {
           </button>
         </form>
 
-        <img src={url} alt={keyword} className="block mx-auto" onDoubleClick={addToLikes} />
+        <div className="relative">
+          <img src={url} alt={keyword} className="block mx-auto" onDoubleClick={addToLikes} />
+          {isLiked && <span className="text-[3em] animate-ping absolute top-40 left-1/2 -translate-x-1/2 select-none">♥︎</span>}
+        </div>
 
         <a
           className={!isSaved ? 'mt-3 block text-center p-3 rounded-md bg-gray-800 text-white' : 'hidden'}
