@@ -115,7 +115,7 @@ export default function HomePage() {
 
         <div className="relative">
           <img src={url} alt={keyword} className="block mx-auto" onDoubleClick={addToLikes} />
-          {isLiked && <span className="text-[3em] animate-ping absolute top-40 left-1/2 -translate-x-1/2 select-none">♥︎</span>}
+          {isLiked && <span className="text-[3em] animate-ping absolute top-10 left-1/2 -translate-x-1/2 select-none">♥︎</span>}
         </div>
 
         <a
