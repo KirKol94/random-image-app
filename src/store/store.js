@@ -1,7 +1,7 @@
 import { combineReducers, createStore } from 'redux';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import likesReducer from './reducers/likesReducer'; // defaults to localStorage for web
+import likesReducer from './reducers/likesReducer';
 
 const persistConfig = {
   key: 'root',

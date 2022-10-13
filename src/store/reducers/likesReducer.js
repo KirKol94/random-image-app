@@ -12,12 +12,12 @@ export default function likesReducer(state = initialState, action = {}) {
     case ADD_IMAGE:
       return {
         ...state,
-        posts: [payload, ...state.posts],
+        likes: [payload, ...state.likes],
       };
     case REMOVE_IMAGE:
       return {
         ...state,
-        posts: [...state.posts.filter((p) => p.id !== payload)],
+        likes: [...state.likes.filter((p) => p.id !== payload)],
       };
 
     default:

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const links = [
@@ -12,9 +12,9 @@ export default function Header() {
       <section className="container mx-auto">
         <nav className="flex space-x-3">
           {links?.map(({ to, name }) => (
-            <NavLink key={to} to={to} className={({ isActive }) => (isActive ? 'text-white/50' : '')}>
+            <Link key={to} to={to}>
               <div className="py-3">{name}</div>
-            </NavLink>
+            </Link>
           ))}
         </nav>
       </section>

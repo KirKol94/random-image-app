@@ -1,43 +1,53 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addImageToLikesAC } from '../../store/reducers/likesReducer';
 
 export default function HomePage() {
-  const [imgSrc, setImgSrc] = useState('');
-  const [imgParams, setImgParams] = useState({ width: '', height: '', keyword: '' });
-  const [requestCount, setRequestCount] = useState(0);
+  const dispatch = useDispatch();
 
-  const baseImg = 'https://source.unsplash.com/random/1000x400?landscape';
-  const { width, height, keyword } = imgParams;
+  const [imgParams, setImgParams] = useState({
+    width: 1000, height: 400, keyword: 'landscape', isLike: false, url: '',
+  });
+  const [reqCount, setReqCount] = useState(0);
 
-  function requestImage(w, h, k) {
-    setImgSrc(`https://source.unsplash.com/random/${w}x${h}?${k}`);
+  const baseURL = 'https://source.unsplash.com/random';
+  const {
+    width, height, keyword, url,
+  } = imgParams;
+
+  function addReqCount() {
+    setReqCount((reqCount) => reqCount + 1);
   }
+
+  function reqImgUrl(w, h, k) {
+    axios.get(`${baseURL}/${w}x${h}?${k}`)
+      .then((res) => setImgParams({ ...imgParams, url: res.request.responseURL }));
+  }
+
   function onChangeHandler(e) {
     const { name, value } = e.target;
     setImgParams({ ...imgParams, [name]: value });
   }
+
   function onSubmitHandler(e) {
     e.preventDefault();
-    requestImage(width, height, keyword);
-    setRequestCount((requestCount) => requestCount + 1);
+    reqImgUrl(width, height, keyword);
   }
-  function updateCurrentRequest() {
-    setRequestCount((requestCount) => requestCount + 1);
+
+  function addToLikes() {
+    const id = new Date().getTime();
+    dispatch(addImageToLikesAC({ ...imgParams, id }));
   }
 
   useEffect(() => {
-    fetch(baseImg)
-      .then((res) => setImgSrc(res.url));
-    setRequestCount((requestCount) => requestCount + 1);
-  }, []);
-  useEffect(() => {
-    fetch(imgSrc)
-      .then((res) => setImgSrc(res.url));
-  }, [requestCount]);
+    reqImgUrl(width, height, keyword);
+  }, [reqCount]);
 
   return (
     <main>
       <section className="container mx-auto py-3">
-        <h1 className="text-2xl">Get random image</h1>
+        <h1 className="text-2xl">Get random image. Double click add to like list</h1>
         <form onSubmit={onSubmitHandler} className="w-full my-3 space-y-2 rounded-md">
           <input
             className="w-full p-3 rounded-md"
@@ -71,13 +81,18 @@ export default function HomePage() {
           <button
             className="w-full p-3 rounded-md text-white bg-gray-800"
             type="submit"
-            onClick={requestCount !== 0 ? updateCurrentRequest : onSubmitHandler}
+            onClick={addReqCount}
           >
             Update image
           </button>
         </form>
 
-        <img src={imgSrc} alt={keyword} className="w-full" />
+        <img
+          src={url}
+          alt={keyword}
+          className="w-full"
+          onDoubleClick={addToLikes}
+        />
       </section>
     </main>
   );
