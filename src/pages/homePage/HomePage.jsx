@@ -10,7 +10,9 @@ export default function HomePage() {
     width: 1000, height: 400, keyword: 'landscape', isLike: false, url: '',
   });
   const [reqCount, setReqCount] = useState(0);
+  const [urlOnSave, setUrlOnSave] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   const baseURL = 'https://source.unsplash.com/random';
   const {
@@ -19,11 +21,13 @@ export default function HomePage() {
 
   function reqImgUrl(w, h, k) {
     setIsLoading(true);
+    setIsSaved(true);
 
     axios.get(`${baseURL}/${w}x${h}?${k}`)
       .then((res) => {
         setImgParams({ ...imgParams, url: res.request.responseURL });
         setIsLoading(false);
+        setIsSaved(false);
       });
   }
 
@@ -41,9 +45,20 @@ export default function HomePage() {
     dispatch(addImageToLikesAC({ ...imgParams, id }));
   }
 
+  function downloadImage() {
+    fetch(url)
+      .then((res) => res.blob())
+      .then((res) => {
+        setUrlOnSave(URL.createObjectURL(res));
+      });
+  }
   useEffect(() => {
     reqImgUrl(width, height, keyword);
   }, [reqCount]);
+
+  useEffect(() => {
+    downloadImage();
+  }, [imgParams.url]);
 
   return (
     <main>
@@ -51,7 +66,7 @@ export default function HomePage() {
         <h1 className="text-2xl">Get random image. Double click add to like list</h1>
         <form onSubmit={onSubmitHandler} className="w-full my-3 space-y-2 rounded-md">
           <input
-            className="w-full p-3 rounded-md"
+            className="w-full p-3 border-2 border-gray-800 rounded-md"
             type="number"
             inputMode="numeric"
             name="width"
@@ -61,7 +76,7 @@ export default function HomePage() {
             onChange={onChangeHandler}
           />
           <input
-            className="w-full p-3 rounded-md"
+            className="w-full p-3 border-2 border-gray-800 rounded-md"
             type="number"
             inputMode="numeric"
             name="height"
@@ -71,7 +86,7 @@ export default function HomePage() {
             onChange={onChangeHandler}
           />
           <input
-            className="w-full p-3 rounded-md"
+            className="w-full p-3 border-2 border-gray-800 rounded-md"
             type="text"
             inputMode="search"
             name="keyword"
@@ -90,6 +105,15 @@ export default function HomePage() {
         </form>
 
         <img src={url} alt={keyword} className="block mx-auto" onDoubleClick={addToLikes} />
+
+        <a
+          className={!isSaved ? 'mt-3 block text-center p-3 rounded-md bg-gray-800 text-white' : 'hidden'}
+          href={urlOnSave}
+          download={`${keyword}.jpeg`}
+          onClick={() => setIsSaved(true)}
+        >
+          download image
+        </a>
       </section>
     </main>
   );
