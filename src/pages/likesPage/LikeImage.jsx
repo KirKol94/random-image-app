@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { likesSelector } from '../../store/selectors';
 import { removeImageFromLikesAC } from '../../store/reducers/likesReducer';
 
@@ -20,7 +20,13 @@ export default function LikeImage() {
   return (
     <main>
       <section className="container mx-auto py-5">
-        <img className="w-full py-3" src={url} alt={keyword} />
+        <Link to="/likes">
+          <img
+            className="w-full py-3"
+            src={url}
+            alt={keyword}
+          />
+        </Link>
 
         <button
           className="w-full text-white bg-gray-800 py-3"
