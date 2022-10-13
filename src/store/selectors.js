@@ -1,1 +1,2 @@
-export default (state) => state.notes.notes;
+export const postsSelector = (state) => state.postsReducer.posts;
+export const post2sSelector = (state) => state.postsReducer.posts;
