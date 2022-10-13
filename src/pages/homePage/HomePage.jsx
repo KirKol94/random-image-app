@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addImageToLikesAC } from '../../store/reducers/likesReducer';
+import { likesSelector } from '../../store/selectors';
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ export default function HomePage() {
   const {
     width, height, keyword, url,
   } = imgParams;
+  const likes = useSelector(likesSelector);
 
   function reqImgUrl(w, h, k) {
     setIsLoading(true);
@@ -26,8 +28,8 @@ export default function HomePage() {
     axios.get(`${baseURL}/${w}x${h}?${k}`)
       .then((res) => {
         setImgParams({ ...imgParams, url: res.request.responseURL });
-        setIsLoading(false);
         setIsSaved(false);
+        setIsLoading(false);
       });
   }
 
@@ -42,7 +44,10 @@ export default function HomePage() {
 
   function addToLikes() {
     const id = new Date().getTime();
-    dispatch(addImageToLikesAC({ ...imgParams, id }));
+    // проверка на одинаковые ссылки
+    if (likes.filter((l) => l.url === imgParams.url).length === 0) {
+      dispatch(addImageToLikesAC({ ...imgParams, id }));
+    }
   }
 
   function downloadImage() {
