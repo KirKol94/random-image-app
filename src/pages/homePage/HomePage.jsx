@@ -22,20 +22,18 @@ export default function HomePage() {
 
     axios.get(`${baseURL}/${w}x${h}?${k}`)
       .then((res) => {
-        setIsLoading(false);
         setImgParams({ ...imgParams, url: res.request.responseURL });
+        setIsLoading(false);
       });
   }
 
   function onChangeHandler(e) {
     const { name, value } = e.target;
     setImgParams({ ...imgParams, [name]: value });
-    setReqCount((reqCount) => reqCount + 1);
   }
 
   function onSubmitHandler(e) {
     e.preventDefault();
-    reqImgUrl(width, height, keyword);
   }
 
   function addToLikes() {
@@ -83,14 +81,15 @@ export default function HomePage() {
           />
           <button
             className="w-full p-3 rounded-md text-white bg-gray-800 disabled:bg-gray-300 disabled:cursor-progress"
-            type="submit"
+            type="button"
             disabled={isLoading}
+            onClick={() => setReqCount((reqCount) => reqCount + 1)}
           >
             Update image
           </button>
         </form>
 
-        <img src={url} alt={keyword} className="w-full" onDoubleClick={addToLikes} />
+        <img src={url} alt={keyword} className="block mx-auto" onDoubleClick={addToLikes} />
       </section>
     </main>
   );
