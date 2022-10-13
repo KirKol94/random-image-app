@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 export default function Header() {
   const links = [
     { to: '/', name: 'Home' },
-    // { to: '/posts', name: 'Postse' },
+    { to: '/likes', name: 'Likes' },
   ];
 
   return (

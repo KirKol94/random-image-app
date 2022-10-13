@@ -76,6 +76,7 @@ export default function HomePage() {
             Update image
           </button>
         </form>
+
         <img src={imgSrc} alt={keyword} className="w-full" />
       </section>
     </main>

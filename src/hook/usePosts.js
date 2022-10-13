@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { postsSelector } from '../store/selectors';
-import { addPostAC } from '../store/reducers/postsReducer';
+import { addPostAC } from '../store/reducers/likesReducer';
 
 export default function usePosts() {
   const dispatch = useDispatch();
