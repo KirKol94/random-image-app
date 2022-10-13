@@ -16,10 +16,6 @@ export default function HomePage() {
     width, height, keyword, url,
   } = imgParams;
 
-  function addReqCount() {
-    setReqCount((reqCount) => reqCount + 1);
-  }
-
   function reqImgUrl(w, h, k) {
     axios.get(`${baseURL}/${w}x${h}?${k}`)
       .then((res) => setImgParams({ ...imgParams, url: res.request.responseURL }));
@@ -28,11 +24,13 @@ export default function HomePage() {
   function onChangeHandler(e) {
     const { name, value } = e.target;
     setImgParams({ ...imgParams, [name]: value });
+    setReqCount((reqCount) => reqCount + 1);
   }
 
   function onSubmitHandler(e) {
     e.preventDefault();
     reqImgUrl(width, height, keyword);
+    console.log('submit');
   }
 
   function addToLikes() {
@@ -81,7 +79,6 @@ export default function HomePage() {
           <button
             className="w-full p-3 rounded-md text-white bg-gray-800"
             type="submit"
-            onClick={addReqCount}
           >
             Update image
           </button>
