@@ -1,21 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { likesSelector } from '../../store/selectors';
-import { removeImageFromLikesAC } from '../../store/reducers/likesReducer';
+import { Link } from 'react-router-dom';
+import useLikeImage from './useLikeImage';
 
 export default function LikeImage() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const { id } = useParams();
-  const likes = useSelector(likesSelector);
-
-  const { url, keyword } = likes.filter((l) => l.id === +id)[0];
-
-  function removeFromLikes(id) {
-    dispatch(removeImageFromLikesAC(+id));
-    navigate('/likes');
-  }
+  const { url, keyword, removeFromLikes } = useLikeImage();
 
   return (
     <main>

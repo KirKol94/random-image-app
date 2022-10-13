@@ -11,6 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <Provider store={store}>
+    {/* для локал стоража */}
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <App />

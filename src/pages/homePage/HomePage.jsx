@@ -1,73 +1,12 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { addImageToLikesAC } from '../../store/reducers/likesReducer';
-import { likesSelector } from '../../store/selectors';
+import useHomePage from './useHomePage';
 
 export default function HomePage() {
-  const dispatch = useDispatch();
-
-  const [imgParams, setImgParams] = useState({
-    width: '', height: '', keyword: 'landscape', isLike: false, url: '',
-  });
-  const [reqCount, setReqCount] = useState(0);
-  const [urlOnSave, setUrlOnSave] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-
-  const baseURL = 'https://source.unsplash.com/random';
   const {
-    width, height, keyword, url,
-  } = imgParams;
-  const likes = useSelector(likesSelector);
-
-  function reqImgUrl(w, h, k) {
-    setIsLoading(true);
-    setIsSaved(true);
-    setIsLiked(false);
-
-    axios.get(`${baseURL}/${w}x${h}?${k}`)
-      .then((res) => {
-        setImgParams({ ...imgParams, url: res.request.responseURL });
-        setIsSaved(false);
-        setIsLoading(false);
-      });
-  }
-
-  function onChangeHandler(e) {
-    const { name, value } = e.target;
-    setImgParams({ ...imgParams, [name]: value });
-  }
-
-  function onSubmitHandler(e) {
-    e.preventDefault();
-  }
-
-  function addToLikes() {
-    const id = new Date().getTime();
-    // проверка на одинаковые ссылки
-    if (likes.filter((l) => l.url === imgParams.url).length === 0) {
-      dispatch(addImageToLikesAC({ ...imgParams, id }));
-      setIsLiked(true);
-    }
-  }
-
-  function downloadImage() {
-    fetch(url)
-      .then((res) => res.blob())
-      .then((res) => {
-        setUrlOnSave(URL.createObjectURL(res));
-      });
-  }
-
-  useEffect(() => {
-    reqImgUrl(width, height, keyword);
-  }, [reqCount]);
-
-  useEffect(() => {
-    downloadImage();
-  }, [imgParams.url]);
+    setReqCount, urlOnSave, setIsSaved,
+    isLoading, isSaved, isLiked,
+    width, height, keyword, url, onChangeHandler,
+    onSubmitHandler, addToLikes,
+  } = useHomePage();
 
   return (
     <main>
@@ -115,7 +54,8 @@ export default function HomePage() {
 
         <div className="relative">
           <img src={url} alt={keyword} className="block mx-auto" onDoubleClick={addToLikes} />
-          {isLiked && <span className="text-[3em] animate-ping absolute top-10 left-1/2 -translate-x-1/2 select-none">♥︎</span>}
+          {isLiked
+            && <span className="text-[3em] animate-ping absolute top-10 left-1/2 -translate-x-1/2 select-none">♥︎</span>}
         </div>
 
         <a
