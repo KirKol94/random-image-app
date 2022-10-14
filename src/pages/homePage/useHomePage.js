@@ -8,7 +8,7 @@ export default function useHomePage() {
   const dispatch = useDispatch();
 
   const [imgParams, setImgParams] = useState({
-    width: '', height: '', keyword: 'landscape', isLike: false, url: '',
+    width: '', height: '', keyword: '', isLike: false, url: '',
   });
   const [reqCount, setReqCount] = useState(0);
   const [urlOnSave, setUrlOnSave] = useState('');
