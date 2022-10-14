@@ -18,7 +18,7 @@ export default function LikeImage() {
         <button
           className="w-full text-white bg-gray-800 py-3"
           type="button"
-          onClick={() => removeFromLikes(id)}
+          onClick={removeFromLikes}
         >
           Remove image
         </button>

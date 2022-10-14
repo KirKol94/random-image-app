@@ -12,7 +12,7 @@ export default function useLikeImage() {
 
   const { url, keyword } = likes.filter((l) => l.id === +id)[0];
 
-  function removeFromLikes(id) {
+  function removeFromLikes() {
     dispatch(removeImageFromLikesAC(+id));
     navigate('/likes');
   }
