@@ -2,10 +2,19 @@ import useHomePage from './useHomePage';
 
 export default function HomePage() {
   const {
-    setReqCount, urlOnSave, setIsSaved,
-    isLoading, isSaved, isLiked,
-    width, height, keyword, url, onChangeHandler,
-    onSubmitHandler, addToLikes,
+    setReqCount,
+    urlOnSave,
+    setIsSaved,
+    isLoading,
+    isSaved,
+    isLiked,
+    width,
+    height,
+    keyword,
+    url,
+    onChangeHandler,
+    onSubmitHandler,
+    addToLikes,
   } = useHomePage();
 
   return (
