@@ -11,7 +11,7 @@ export default function Header() {
     <header className="bg-gray-800 text-white">
       <section className="container mx-auto">
         <nav className="flex space-x-3">
-          {links?.map(({ to, name }) => (
+          {links.length > 0 && links.map(({ to, name }) => (
             <Link key={to} to={to}>
               <div className="py-3">{name}</div>
             </Link>

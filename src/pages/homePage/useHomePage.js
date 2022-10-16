@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { likesSelector } from '../../store/selectors';
+import { getFavoritePhotos } from '../../selectors/faroritePhotosSelector';
 import { addImageToLikesAC } from '../../store/reducers/likesReducer';
 
 export default function useHomePage() {
@@ -20,7 +20,7 @@ export default function useHomePage() {
   const {
     width, height, keyword, url,
   } = imgParams;
-  const likes = useSelector(likesSelector);
+  const likes = useSelector(getFavoritePhotos);
 
   function reqImgUrl(w, h, k) {
     setIsLoading(true);
