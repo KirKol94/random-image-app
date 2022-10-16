@@ -1,10 +1,10 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import { path } from '../../const/links';
 
 export default function Header() {
   const links = [
-    { to: '/', name: 'Home' },
-    { to: '/likes', name: 'Likes' },
+    { to: path.home, name: 'Home' },
+    { to: path.likes, name: 'Favorites' },
   ];
 
   return (

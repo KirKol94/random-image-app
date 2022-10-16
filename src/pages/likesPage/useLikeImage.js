@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getFavoritePhotos } from '../../selectors/faroritePhotosSelector';
 import { removeImageFromLikesAC } from '../../store/reducers/likesReducer';
+import { path } from '../../const/links';
 
 export default function useLikeImage() {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ export default function useLikeImage() {
 
   function removeFromLikes() {
     dispatch(removeImageFromLikesAC(+id));
-    navigate('/likes');
+    navigate(`/${path.likes}`);
   }
 
   return { url, keyword, removeFromLikes };
