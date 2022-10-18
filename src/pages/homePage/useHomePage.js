@@ -35,7 +35,7 @@ export default function useHomePage() {
       });
   }
 
-  function onChangeHandler(e) {
+  function onChangeInput(e) {
     const { name, value } = e.target;
     setImgParams({ ...imgParams, [name]: value });
   }
@@ -80,7 +80,7 @@ export default function useHomePage() {
     height,
     keyword,
     url,
-    onChangeHandler,
+    onChangeInput,
     onSubmitHandler,
     addToLikes,
   };

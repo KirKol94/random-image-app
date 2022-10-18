@@ -12,7 +12,7 @@ export default function HomePage() {
     height,
     keyword,
     url,
-    onChangeHandler,
+    onChangeInput,
     onSubmitHandler,
     addToLikes,
   } = useHomePage();
@@ -26,11 +26,11 @@ export default function HomePage() {
             className="w-full p-3 border-2 border-gray-800 rounded-md"
             type="number"
             inputMode="numeric"
+            pattern=""
             name="width"
             placeholder="width"
-            max={2048}
             value={width}
-            onChange={onChangeHandler}
+            onChange={onChangeInput}
           />
           <input
             className="w-full p-3 border-2 border-gray-800 rounded-md"
@@ -38,9 +38,8 @@ export default function HomePage() {
             inputMode="numeric"
             name="height"
             placeholder="height"
-            max={2048}
             value={height}
-            onChange={onChangeHandler}
+            onChange={onChangeInput}
           />
           <input
             className="w-full p-3 border-2 border-gray-800 rounded-md"
@@ -49,7 +48,7 @@ export default function HomePage() {
             name="keyword"
             placeholder="search image"
             value={keyword}
-            onChange={onChangeHandler}
+            onChange={onChangeInput}
           />
           <button
             className="w-full p-3 rounded-md text-white bg-gray-800 disabled:bg-gray-300 disabled:cursor-progress"
